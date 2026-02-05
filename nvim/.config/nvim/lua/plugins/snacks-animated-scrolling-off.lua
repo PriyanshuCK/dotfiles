@@ -1,9 +1,8 @@
--- Disable animated scrolling for better performance
 return {
-  {
-    "folke/snacks.nvim",
-    opts = {
-      scroll = { enabled = false },
+  "folke/snacks.nvim",
+  opts = {
+    scroll = {
+      enabled = true, -- Disable scrolling animations
     },
   },
 }

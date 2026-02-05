@@ -1,5 +1,5 @@
--- Disable certain plugins
 return {
-  -- Example: disable flash (if you prefer)
-  -- { "folke/flash.nvim", enabled = false },
+  { "akinsho/bufferline.nvim", enabled = false },
+  { "folke/flash.nvim", enabled = false },
+  { "nvim-lualine/lualine.nvim", enabled = false },
 }
