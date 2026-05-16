@@ -15,3 +15,7 @@ alias cd="z"
 # eza
 
 alias ls="eza --color=always --long --git --no-filesize --icons=always --no-time --no-user --no-permissions"
+
+# bun completions
+[ -s "/Users/priyanshuck/.bun/_bun" ] && source "/Users/priyanshuck/.bun/_bun"
+export PATH="$HOME/.local/bin:$PATH"
