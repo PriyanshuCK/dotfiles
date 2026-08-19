@@ -1,0 +1,2 @@
+#!/bin/sh
+exec /mnt/c/nvm4w/nodejs/node.exe 'C:\nvm4w\nodejs\node_modules\npm\bin\npx-cli.js' "$@"

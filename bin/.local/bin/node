@@ -1,0 +1,5 @@
+#!/bin/sh
+# Shim, not an alias. An alias only exists at the command position of an
+# interactive zsh, so npm scripts, git hooks, and separate processes like
+# starship never saw it. This is a real executable on PATH.
+exec /mnt/c/nvm4w/nodejs/node.exe "$@"

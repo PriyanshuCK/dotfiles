@@ -1,0 +1,4 @@
+#!/bin/sh
+# Windows npm must be driven by Windows node, with a Windows-style path to
+# the CLI entrypoint. Single quotes keep the backslashes intact.
+exec /mnt/c/nvm4w/nodejs/node.exe 'C:\nvm4w\nodejs\node_modules\npm\bin\npm-cli.js' "$@"

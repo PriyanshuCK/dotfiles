@@ -5,9 +5,14 @@ export PATH=$(echo $PATH | tr ':' '\n' | grep -v '/mnt/c' | tr '\n' ':' | sed 's
 # WSL-native tools
 export PATH="$HOME/.bun/bin:$PATH"
 
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
+# Shims for the Windows toolchain (node, npm, npx, bun, dotnet). These are
+# real executables, so npm scripts, git hooks, and separate processes like
+# starship can find them — which aliases could never do.
+# Node lives on the Windows side only, managed by nvm4w:
+#   /mnt/c/nvm4w/nodejs -> AppData/Local/nvm/<version>
+# There is deliberately no WSL node and no WSL nvm; sourcing nvm.sh was one
+# of the slowest lines in shell startup and had nothing left to manage.
+export PATH="$HOME/.local/bin:$PATH"
 
 # ── SHELL INIT ────────────────────────────────────────────────
 eval "$(starship init zsh)"
@@ -39,9 +44,9 @@ gch() {
 }
 
 # ── WINDOWS BINARIES ──────────────────────────────────────────
-# Node / npm (Windows — project requires v16.16.0)
-alias node='/mnt/c/nvm4w/nodejs/node.exe'
-alias npm='/mnt/c/nvm4w/nodejs/node.exe "C:\nvm4w\nodejs\node_modules\npm\bin\npm-cli.js"'
+# node / npm / npx / bun / dotnet are NOT aliased — they are shims in
+# ~/.local/bin so they also work inside scripts and other processes.
+# Active Windows toolchain: /mnt/c/nvm4w/nodejs -> AppData/Local/nvm/v22.14.0
 
 # Claude / Opencode (Windows)
 alias claude='/mnt/c/Users/priyanshu.sharma1/.local/bin/claude.exe'
@@ -51,9 +56,3 @@ alias codex='/mnt/c/Users/priyanshu.sharma1/AppData/Local/Programs/OpenAI/Codex/
 alias cl='claude'
 alias oc='opencode'
 alias cx='codex'
-
-# dotnet (Windows)
-alias dotnet='"/mnt/c/Program Files/dotnet/dotnet.exe"'
-
-# Bun (Windows)
-alias bun='/mnt/c/Users/priyanshu.sharma1/.bun/bin/bun.exe'
