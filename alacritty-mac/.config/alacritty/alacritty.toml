@@ -1,3 +1,10 @@
+# ── Colors ────────────────────────────────────────────────────────────
+# Zed One Dark, imported rather than pasted. alacritty/onedark.toml is the
+# only Alacritty file holding hex; it is itself derived from
+# nvim/.config/nvim/colors/zed-onedark.lua. Imports are applied first, so
+# anything below still wins over the palette.
+general.import = ["~/dotfiles/alacritty/onedark.toml"]
+
 [env]
 TERM = "xterm-256color"
 
@@ -17,60 +24,6 @@ decorations = "None"
 # binding in tmux — the M-a prefix and the M-s status toggle both arrived as
 # accented letters. "Both" so either Option key works.
 option_as_alt = "Both"
-
-# ── Colors: Zed One Dark ──────────────────────────────────────────────
-# Single source of truth: nvim/.config/nvim/colors/zed-onedark.lua
-#   normal + bright  <- terminal_color_0..15
-#   everything else  <- the highlight group named in each comment
-# If the palette moves there, mirror it here. No other file holds a hex.
-
-[colors.primary]
-background = "#282c33"      # Normal bg
-foreground = "#acb2be"      # Normal fg
-
-[colors.cursor]
-text = "#282c33"            # Cursor
-cursor = "#acb2be"
-
-[colors.vi_mode_cursor]
-text = "#282c33"            # Cursor
-cursor = "#acb2be"
-
-[colors.search.matches]
-foreground = "#dce0e5"      # Search
-background = "#3d5273"
-
-[colors.search.focused_match]
-foreground = "#282c33"      # IncSearch / CurSearch
-background = "#e8af74"
-
-[colors.footer_bar]
-foreground = "#acb2be"      # StatusLine
-background = "#3b414d"
-
-[colors.selection]
-text = "CellForeground"     # Visual is bg-only, so keep each cell's own fg
-background = "#3e4451"
-
-[colors.normal]
-black = "#282c34"
-red = "#e06c75"
-green = "#98c379"
-yellow = "#e5c07b"
-blue = "#61afef"
-magenta = "#c678dd"
-cyan = "#56b6c2"
-white = "#abb2bf"
-
-[colors.bright]
-black = "#636d83"
-red = "#ea858b"
-green = "#aad581"
-yellow = "#ffd885"
-blue = "#85c1ff"
-magenta = "#d398eb"
-cyan = "#6ed5de"
-white = "#fafafa"
 
 [[keyboard.bindings]]
 key = "Return"
