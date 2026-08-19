@@ -17,10 +17,11 @@ export PATH="$HOME/.local/bin:$PATH"
 # ── SHELL INIT ────────────────────────────────────────────────
 eval "$(starship init zsh)"
 eval "$(fzf --zsh)"
-eval "$(zoxide init zsh)"
+# --cmd cd defines cd itself, which keeps `cd -`, bare `cd`, and completions
+# working. `alias cd=z` threw those away. `cdi` gives the interactive picker.
+eval "$(zoxide init zsh --cmd cd)"
 
 # ── SHELL ALIASES ─────────────────────────────────────────────
-alias cd="z"
 alias ls="eza --color=always --long --git --no-filesize --icons=always --no-time --no-user --no-permissions"
 alias lg='lazygit'
 
