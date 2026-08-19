@@ -26,7 +26,10 @@ format = "[$branch]($style) "
 style = "italic purple"
 
 [git_status]
-format     = '[$all_status]($style)'
+# $all_status alone covers only the working-tree symbols. ahead/behind/
+# diverged/up_to_date live in $ahead_behind, so without it the four settings
+# below were configured but could never render.
+format     = '[$all_status$ahead_behind]($style)'
 style      = "purple"
 ahead      = "⇡${count} "
 diverged   = "⇕⇡${ahead_count}⇣${behind_count} "
