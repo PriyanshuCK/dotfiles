@@ -12,6 +12,11 @@ startup_mode = "Fullscreen"
 padding.x = 0
 padding.y = 0
 decorations = "None"
+# macOS defaults this to "None", which makes Option a compose key: Option-a
+# types "å" instead of sending ESC a. That silently swallowed every Alt
+# binding in tmux — the M-a prefix and the M-s status toggle both arrived as
+# accented letters. "Both" so either Option key works.
+option_as_alt = "Both"
 
 # ── Colors: Zed One Dark ──────────────────────────────────────────────
 # Single source of truth: nvim/.config/nvim/colors/zed-onedark.lua
