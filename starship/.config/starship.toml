@@ -1,8 +1,10 @@
 add_newline = true
-# Every external command here crosses the WSL->Windows interop boundary and
-# runs off /mnt/c. Measured: node.exe --version is ~70ms warm but ~550ms cold,
-# so the old 200 (below starship's own default of 500) silently dropped
-# modules. scan_timeout is raised for the same reason: DrvFs is slow.
+# Sized for the slowest box, which is the WSL one: every external command
+# there crosses the Windows interop boundary and runs off /mnt/c. Measured:
+# node.exe --version is ~70ms warm but ~550ms cold, so the old 200 (below
+# starship's own default of 500) silently dropped modules. scan_timeout is
+# raised for the same reason: DrvFs is slow. Native boxes never come close to
+# either ceiling, so one value serves all of them.
 command_timeout = 1000
 scan_timeout = 100
 format = "[$directory$git_branch$git_status]($style)$nodejs$character"
@@ -44,8 +46,8 @@ renamed    = ""
 deleted    = ""
 
 [nodejs]
-# Reads `node --version`, which only resolves because ~/.local/bin/node is a
-# real shim. Dim, not accented: it is reference info, not active state.
+# Reads `node --version` — a native node on the Mac, the ~/.local/bin shim
+# from local-wsl on WSL. Dim, not accented: reference info, not active state.
 format = "[$symbol$version]($style) "
 style  = "bright-black"
 symbol = " "
