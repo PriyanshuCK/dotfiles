@@ -1,23 +1,10 @@
-[env]
-TERM = "xterm-256color"
-
-[font]
-normal = { family = "CaskaydiaMono Nerd Font", style = "SemiLight" }
-bold = { family = "CaskaydiaMono Nerd Font", style = "Bold" }
-italic = { family = "CaskaydiaMono Nerd Font", style = "Italic" }
-size = 22
-
-[window]
-startup_mode = "Fullscreen"
-padding.x = 0
-padding.y = 0
-decorations = "None"
-
-# ── Colors: Zed One Dark ──────────────────────────────────────────────
-# Single source of truth: nvim/.config/nvim/colors/zed-onedark.lua
-#   normal + bright  <- terminal_color_0..15
-#   everything else  <- the highlight group named in each comment
-# If the palette moves there, mirror it here. No other file holds a hex.
+# ── Zed One Dark palette ──────────────────────────────────────────────
+# Shared palette, imported rather than copied. Derived from
+#   nvim/.config/nvim/colors/zed-onedark.lua
+#     normal + bright  <- terminal_color_0..15
+#     everything else  <- the highlight group named in each comment
+# This file is the single source of truth for terminal colors. Import it,
+# never paste it.
 
 [colors.primary]
 background = "#282c33"      # Normal bg
@@ -66,8 +53,3 @@ blue = "#85c1ff"
 magenta = "#d398eb"
 cyan = "#6ed5de"
 white = "#fafafa"
-
-[[keyboard.bindings]]
-key = "Return"
-mods = "Shift"
-chars = "\u001B\r"
