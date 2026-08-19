@@ -1,0 +1,6 @@
+# Search roots for tmux-sessionizer (<prefix> f), one per line.
+# A trailing /* expands to the immediate children of that directory;
+# any other line is offered as-is. Blank lines and # comments are ignored.
+~/dotfiles
+~/Developer/*
+~/Projects/*

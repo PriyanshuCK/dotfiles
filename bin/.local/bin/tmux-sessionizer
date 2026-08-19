@@ -2,10 +2,34 @@
 # Pick a project and attach a tmux session named after it, creating it if it
 # does not exist. Bound to <prefix> f.
 #
-# Directory list: the GWR checkouts plus the dotfiles repo. Add roots here.
-selected=$(find /mnt/c/GWR -maxdepth 1 -mindepth 1 -type d 2>/dev/null; echo "$HOME/dotfiles")
-selected=$(printf '%s\n' "$selected" | fzf --height=40% --reverse --prompt="project: ")
+# Search roots come from ~/.config/tmux-sessionizer/paths, stowed per machine
+# from local-wsl or local-mac — the roots are the one part of this that is
+# genuinely machine-specific, so the script itself stays portable.
+#   <dir>/*   offer each immediate child of <dir>
+#   <dir>     offer <dir> itself
+# With no paths file, ~/dotfiles is the only candidate.
 
+config="${XDG_CONFIG_HOME:-$HOME/.config}/tmux-sessionizer/paths"
+
+list_roots() {
+    if [ ! -r "$config" ]; then
+        echo "$HOME/dotfiles"
+        return
+    fi
+    # Strip comments and blanks, expand a leading ~, then expand /* roots.
+    sed -e 's/[[:space:]]*#.*$//' -e '/^[[:space:]]*$/d' "$config" |
+    while IFS= read -r line; do
+        case "$line" in
+            "~/"*) line="$HOME/${line#\~/}" ;;
+        esac
+        case "$line" in
+            */\*) find "${line%/\*}" -maxdepth 1 -mindepth 1 -type d 2>/dev/null ;;
+            *) [ -d "$line" ] && echo "$line" ;;
+        esac
+    done
+}
+
+selected=$(list_roots | sort -u | fzf --height=40% --reverse --prompt="project: ")
 [ -z "$selected" ] && exit 0
 
 # tmux session names cannot contain dots or colons.
