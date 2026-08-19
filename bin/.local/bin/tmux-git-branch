@@ -1,0 +1,14 @@
+#!/bin/sh
+# Print the git branch for the directory given as $1, or nothing at all when
+# it is not a repo — so the status bar collapses cleanly outside one.
+# Called from status-right via #(), roughly every status-interval seconds.
+[ -n "$1" ] || exit 0
+
+branch=$(git -C "$1" rev-parse --abbrev-ref HEAD 2>/dev/null) || exit 0
+
+# Detached HEAD reports the literal string "HEAD"; show the short sha instead.
+if [ "$branch" = "HEAD" ]; then
+    branch=$(git -C "$1" rev-parse --short HEAD 2>/dev/null)
+fi
+
+[ -n "$branch" ] && printf ' %s' "$branch"
