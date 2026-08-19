@@ -1,0 +1,18 @@
+#!/bin/sh
+# Pick a project and attach a tmux session named after it, creating it if it
+# does not exist. Bound to <prefix> f.
+#
+# Directory list: the GWR checkouts plus the dotfiles repo. Add roots here.
+selected=$(find /mnt/c/GWR -maxdepth 1 -mindepth 1 -type d 2>/dev/null; echo "$HOME/dotfiles")
+selected=$(printf '%s\n' "$selected" | fzf --height=40% --reverse --prompt="project: ")
+
+[ -z "$selected" ] && exit 0
+
+# tmux session names cannot contain dots or colons.
+name=$(basename "$selected" | tr '.:' '__')
+
+if ! tmux has-session -t="$name" 2>/dev/null; then
+    tmux new-session -ds "$name" -c "$selected"
+fi
+
+tmux switch-client -t "$name"
