@@ -26,16 +26,16 @@ alias ls="eza --color=always --long --git --no-filesize --icons=always --no-time
 alias lg='lazygit'
 
 # ── PROJECT NAVIGATION ────────────────────────────────────────
-alias cdg="cd /mnt/c/gwr/"
-alias gn='cd /mnt/c/gwr/gwr-brochure-website && nvim .'
-alias go='cd /mnt/c/gwr/gwr-brochure-website && opencode'
-alias gc='cd /mnt/c/gwr/gwr-brochure-website && claude'
+alias cdg="cd /mnt/c/GWR/"
+alias gn='cd /mnt/c/GWR/gwr-brochure-website && nvim .'
+alias go='cd /mnt/c/GWR/gwr-brochure-website && opencode'
+alias gc='cd /mnt/c/GWR/gwr-brochure-website && claude'
 
 # ── GWR NPM COMMANDS ──────────────────────────────────────────
-alias rlb='cd /mnt/c/gwr/gwr-brochure-website/src/rendering && npm run lint && npm run build'
-alias gwr='cd /mnt/c/gwr/gwr-brochure-website/src/rendering && npm run start:connected_onpremise_ssl'
-alias urlb='cd /mnt/c/gwr/gwr-brochure-website-upgrade-may26/src/rendering && npm run lint && npm run build'
-alias ugwr='cd /mnt/c/gwr/gwr-brochure-website-upgrade-may26/src/rendering && npm run start:connected_onpremise_ssl'
+alias rlb='cd /mnt/c/GWR/gwr-brochure-website/src/rendering && npm run lint && npm run build'
+alias gwr='cd /mnt/c/GWR/gwr-brochure-website/src/rendering && npm run start:connected_onpremise_ssl'
+alias urlb='cd /mnt/c/GWR/gwr-brochure-website-upgrade-may26/src/rendering && npm run lint && npm run build'
+alias ugwr='cd /mnt/c/GWR/gwr-brochure-website-upgrade-may26/src/rendering && npm run start:connected_onpremise_ssl'
 
 # ── FUZZY BRANCH SWITCHER ─────────────────────────────────────
 gch() {
