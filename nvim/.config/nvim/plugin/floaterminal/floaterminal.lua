@@ -57,9 +57,11 @@ end
 vim.api.nvim_create_user_command("Floaterminal", toggle_terminal, {})
 vim.keymap.set({ "n", "t" }, "<space>tt", toggle_terminal)
 
-local function run_gwr_brochure_website()
-  local cwd = vim.fn.getcwd():gsub("\\", "/") -- Normalize Windows path
-
+-- Open the floating terminal and run a shell command in it. Deliberately
+-- knows about no particular project: machine-local config binds the keys, so
+-- a work checkout that exists on one box leaves no trace on the others.
+--   :FloatermRun cd src/rendering && npm run start
+local function run_in_terminal(cmd)
   if not vim.api.nvim_win_is_valid(state.floating.win) then
     state.floating = create_floating_window({ buf = state.floating.buf })
 
@@ -72,9 +74,11 @@ local function run_gwr_brochure_website()
 
   -- Use vim.schedule to ensure the terminal is ready
   vim.schedule(function()
-    vim.fn.chansend(vim.b.terminal_job_id, "cd src/rendering && npm run start:connected_onpremise_ssl\r\n")
+    vim.fn.chansend(vim.b.terminal_job_id, cmd .. "\r\n")
     vim.cmd("startinsert")
   end)
 end
 
-vim.keymap.set("n", "<space>gwr", run_gwr_brochure_website, { desc = "Start GWR brochure site" })
+vim.api.nvim_create_user_command("FloatermRun", function(opts)
+  run_in_terminal(opts.args)
+end, { nargs = "+", desc = "Run a command in the floating terminal" })
