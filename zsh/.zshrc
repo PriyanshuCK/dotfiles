@@ -55,6 +55,19 @@ cpr() {
   fi
 }
 
+# ── REMOTE BOX ────────────────────────────────────────────────
+# Attach the one persistent tmux session on the GCP box, so every device
+# picks up the same scrollback and the same in-flight work. mosh rather than
+# ssh: it echoes keystrokes locally, which hides the ~250ms to us-central1
+# and survives a sleeping laptop or a change of network. `new -A` attaches
+# the session if it exists and creates it if it does not, so there is only
+# ever one and nothing to remember. Shared rather than machine-local: the
+# text is identical on every box, and the one part that genuinely differs —
+# the `Host lifeos` block naming the tailnet host — lives in ~/.ssh/config,
+# which this repo does not carry.
+alias lifeos='mosh lifeos -- tmux new -A -s lifeos'
+alias os=lifeos
+
 # ── MACHINE-LOCAL ─────────────────────────────────────────────
 # Sourced last so a machine can override anything above it. Absent on a box
 # with no local package stowed, which is fine — the shell above is complete.
