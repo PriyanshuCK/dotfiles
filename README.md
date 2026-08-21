@@ -6,7 +6,8 @@ GNU stow layout: each top-level directory is a *package* whose contents mirror
 ```sh
 cd ~/dotfiles
 stow zsh tmux starship bin nvim   # shared, on every machine
-stow local-mac alacritty-mac      # ...then exactly one machine package
+stow local-mac alacritty-mac      # ...plus what the machine adds: local-wsl
+                                  # on the work laptop, nothing on lifeos
 ```
 
 Use `stow -R <pkg>` to re-link after moving files, and `stow -D <pkg>` to unlink.
@@ -22,16 +23,18 @@ defaults for months. Let stow generate them.
 | `tmux`              | all       | `~/.tmux.conf`                                        |
 | `starship`          | all       | `~/.config/starship.toml`                             |
 | `bin`               | all       | `~/.local/bin/tmux-{sessionizer,git-branch}`          |
-| `nvim`              | mac + WSL | `~/.config/nvim`                                      |
-| `nvim-omarchy`      | omarchy   | `~/.config/nvim`                                      |
+| `nvim`              | all       | `~/.config/nvim`                                      |
 | `alacritty-mac`     | mac       | `~/.config/alacritty`                                 |
-| `alacritty-omarchy` | omarchy   | `~/.config/alacritty`                                 |
 | `local-mac`         | mac       | `~/.config/zsh`, `~/.config/tmux-sessionizer`         |
 | `local-wsl`         | WSL       | ...the same, plus `~/.config/nvim-local` and `~/.local/bin/{node,npm,npx,bun,dotnet}` |
-| `alacritty`         | —         | not stowed; imported by the others, see below         |
+| `alacritty`         | —         | not stowed; imported by `alacritty-mac`, see below    |
 
-Stow exactly one `nvim*`, one `alacritty*`, and one `local-*` per machine —
-they target the same paths.
+The three machines are the Mac, the WSL box on the work laptop, and `lifeos`,
+the GCP box reached with `os`. Stow at most one `local-*` per machine — they
+target the same paths. `lifeos` takes none: it is reached over mosh, so it has
+no terminal emulator of its own and nothing machine-specific to say. That is
+the supported case, not an oversight — but it does mean anything you put in a
+`local-*` package will never exist there.
 
 **Never `stow local-wsl` on a native box.** It links Windows shims over
 `node`, `npm`, `npx`, `bun` and `dotnet` in `~/.local/bin`, which is first on
@@ -78,8 +81,10 @@ block is the canonical 16-color ANSI ramp.
 copied — `alacritty-mac` pulls it in with `general.import`, and the Windows
 Alacritty does the same across the share. `tmux/.tmux.conf` holds no hex at all:
 it uses ANSI names (`yellow`, `brightblack`) plus `bg=default`, so it inherits
-One Dark here and whatever theme omarchy has active there. That is why there is
-no `tmux-omarchy`.
+One Dark under `alacritty-mac`. On `lifeos` this matters more, not less: tmux
+runs on the GCP box but its output is painted by whichever terminal you are
+sitting in front of, so the remote session picks up the local palette for free.
+That is why there is no per-machine tmux variant.
 
 Accent is **yellow** — tmux status bar, starship prompt, and the Snacks
 dashboard keys — chosen to match the Obsidian vault's accent. It was magenta,
@@ -89,8 +94,8 @@ carry syntax load (`constant`, `DiagnosticWarn`, `GitSignsChange`, and the
 surfaces are buffers — so the two never appear side by side.
 
 The accent is named, never hex. `yellow` resolves to One Dark's `#e5c07b` under
-`alacritty-mac` and to omarchy's yellow there, which is what keeps one tmux
-config serving both machines. Obsidian's accent is the exact gold `#eab308`,
+`alacritty-mac`, and to whatever yellow the attached terminal defines anywhere
+else, which is what keeps one tmux config serving every machine. Obsidian's accent is the exact gold `#eab308`,
 set in `life-os` rather than here; it is the same colour family, not the same
 hex, and matching them exactly would mean editing the ANSI ramp itself and
 repainting every constant and warning in the editor along with it.
