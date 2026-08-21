@@ -271,7 +271,7 @@ h("GitSignsDelete",                { fg = git_del })
 h("SnacksDashboardHeader",         { fg = func })
 h("SnacksDashboardTitle",          { fg = fg_bright, bold = true })
 h("SnacksDashboardDesc",           { fg = fg })
-h("SnacksDashboardKey",            { fg = keyword })
+h("SnacksDashboardKey",            { fg = constant })  -- accent, not syntax
 h("SnacksDashboardIcon",           { fg = attr })
 h("SnacksDashboardFooter",         { fg = comment,   italic = true })
 h("SnacksPickerMatch",             { fg = func,      bold = true })

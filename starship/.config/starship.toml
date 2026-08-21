@@ -11,7 +11,7 @@ format = "[$directory$git_branch$git_status]($style)$nodejs$character"
 
 [character]
 error_symbol = "[✗](bold red)"
-success_symbol = "[❯](bold purple)"
+success_symbol = "[❯](bold yellow)"
 
 [directory]
 truncation_length = 2
@@ -19,20 +19,20 @@ truncation_symbol = "…/"
 # `style` was never set, so it fell back to starship's default "cyan bold".
 # It styles $path in both formats below, which is where the stray cyan came
 # from: outside a repo the whole path used it, inside a repo the tail did.
-style = "purple"
-repo_root_style = "bold purple"
+style = "yellow"
+repo_root_style = "bold yellow"
 repo_root_format = "[$repo_root]($repo_root_style)[$path]($style)[$read_only]($read_only_style) "
 
 [git_branch]
 format = "[$branch]($style) "
-style = "italic purple"
+style = "italic yellow"
 
 [git_status]
 # $all_status alone covers only the working-tree symbols. ahead/behind/
 # diverged/up_to_date live in $ahead_behind, so without it the four settings
 # below were configured but could never render.
 format     = '[$all_status$ahead_behind]($style)'
-style      = "purple"
+style      = "yellow"
 ahead      = "⇡${count} "
 diverged   = "⇕⇡${ahead_count}⇣${behind_count} "
 behind     = "⇣${count} "

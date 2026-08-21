@@ -77,12 +77,23 @@ block is the canonical 16-color ANSI ramp.
 `alacritty/onedark.toml` is that ramp in Alacritty form. It is *imported*, never
 copied — `alacritty-mac` pulls it in with `general.import`, and the Windows
 Alacritty does the same across the share. `tmux/.tmux.conf` holds no hex at all:
-it uses ANSI names (`magenta`, `brightblack`) plus `bg=default`, so it inherits
+it uses ANSI names (`yellow`, `brightblack`) plus `bg=default`, so it inherits
 One Dark here and whatever theme omarchy has active there. That is why there is
 no `tmux-omarchy`.
 
-Accent is **magenta**. In One Dark, blue is `func`/`tag`/`attr` and cyan is
-`type`/`operator`, so violet is the only ramp slot carrying no syntax load.
+Accent is **yellow** — tmux status bar, starship prompt, and the Snacks
+dashboard keys — chosen to match the Obsidian vault's accent. It was magenta,
+picked because violet was the one ramp slot with no syntax load. Yellow does
+carry syntax load (`constant`, `DiagnosticWarn`, `GitSignsChange`, and the
+`IncSearch` background), but only inside a buffer, and none of the accented
+surfaces are buffers — so the two never appear side by side.
+
+The accent is named, never hex. `yellow` resolves to One Dark's `#e5c07b` under
+`alacritty-mac` and to omarchy's yellow there, which is what keeps one tmux
+config serving both machines. Obsidian's accent is the exact gold `#eab308`,
+set in `life-os` rather than here; it is the same colour family, not the same
+hex, and matching them exactly would mean editing the ANSI ramp itself and
+repainting every constant and warning in the editor along with it.
 
 ## The Option key on macOS
 
