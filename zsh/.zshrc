@@ -20,6 +20,16 @@ eval "$(zoxide init zsh --cmd cd)"
 alias ls="eza --color=always --long --git --no-filesize --icons=always --no-time --no-user --no-permissions"
 alias lg='lazygit'
 
+# Short forms for the coding agents. Shared, because the *short* name is true
+# everywhere even though what it resolves to is not: `claude` is a native
+# binary on PATH on the Mac and the VM, and an alias for a Windows .exe on the
+# WSL box, which local-wsl defines. Alias expansion is recursive, so cl reaches
+# whichever one the machine has. On a box with the tool missing it is an alias
+# that fails when used, which costs nothing and beats a fourth local package.
+alias cl='claude'
+alias oc='opencode'
+alias cx='codex'
+
 # ── FUZZY BRANCH SWITCHER ─────────────────────────────────────
 gch() {
   local branch
